@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pharmaserve_logo.dart';
+import '../screens/settings_screen.dart';
 
 class AppNavigationDrawer extends StatelessWidget {
   const AppNavigationDrawer({super.key});
@@ -42,7 +43,7 @@ class AppNavigationDrawer extends StatelessWidget {
           title: const Text('Home'),
           onTap: () {
             Navigator.pop(context);
-            Navigator.pushReplacementNamed(context, '/');
+            Navigator.pushReplacementNamed(context, '/home');
           },
         ),
         const Divider(),
@@ -84,7 +85,10 @@ class AppNavigationDrawer extends StatelessWidget {
           title: const Text('Settings'),
           onTap: () {
             Navigator.pop(context);
-            // TODO: Navigate to settings screen
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsScreen()),
+            );
           },
         ),
         ListTile(
@@ -94,9 +98,9 @@ class AppNavigationDrawer extends StatelessWidget {
             Navigator.pop(context);
             showAboutDialog(
               context: context,
-              applicationName: 'MedTrack',
+              applicationName: 'PharmaServe',
               applicationVersion: '1.0.0',
-              applicationLegalese: '© 2024 MedTrack',
+              applicationLegalese: '© 2024 PharmaServe. All rights reserved.',
             );
           },
         ),

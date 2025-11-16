@@ -50,7 +50,7 @@ class _PharmaServeSplashScreenState extends State<PharmaServeSplashScreen>
     // Navigate to home after animation completes
     Future.delayed(const Duration(milliseconds: 3500), () {
       if (mounted) {
-        Navigator.of(context).pushReplacementNamed('/');
+        Navigator.of(context).pushReplacementNamed('/home');
       }
     });
   }

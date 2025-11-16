@@ -8,6 +8,7 @@ import 'screens/inventory_screen.dart';
 import 'screens/customers_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/pharmaserve_splash_screen.dart';
+import 'screens/settings_screen.dart';
 import 'widgets/pharmaserve_logo.dart';
 
 void main() {
@@ -35,13 +36,14 @@ class MedTrackApp extends StatelessWidget {
       ),
       home: const PharmaServeSplashScreen(),
       routes: {
-        '/': (context) => const HomeScreen(),
+        '/home': (context) => const HomeScreen(),
         '/vitals': (context) => const VitalsScreen(),
         '/medications': (context) => const MedicationsScreen(),
         '/appointments': (context) => const AppointmentsScreen(),
         '/reminders': (context) => const RemindersScreen(),
         '/inventory': (context) => const InventoryScreen(),
         '/customers': (context) => const CustomersScreen(),
+        '/settings': (context) => const SettingsScreen(),
       },
     );
   }

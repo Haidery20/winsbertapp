@@ -3,6 +3,9 @@ import 'screens/home_screen.dart';
 import 'screens/vitals_screen.dart';
 import 'screens/medications_screen.dart';
 import 'screens/appointments_screen.dart';
+import 'screens/reminders_screen.dart';
+import 'screens/inventory_screen.dart';
+import 'screens/customers_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +35,9 @@ class MedTrackApp extends StatelessWidget {
         '/vitals': (context) => const VitalsScreen(),
         '/medications': (context) => const MedicationsScreen(),
         '/appointments': (context) => const AppointmentsScreen(),
+        '/reminders': (context) => const RemindersScreen(),
+        '/inventory': (context) => const InventoryScreen(),
+        '/customers': (context) => const CustomersScreen(),
       },
     );
   }

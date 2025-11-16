@@ -70,6 +70,14 @@ class AppNavigationDrawer extends StatelessWidget {
             Navigator.pushNamed(context, '/appointments');
           },
         ),
+        ListTile(
+          leading: const Icon(Icons.notifications),
+          title: const Text('Reminders'),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, '/reminders');
+          },
+        ),
         const Divider(),
         ListTile(
           leading: const Icon(Icons.settings),

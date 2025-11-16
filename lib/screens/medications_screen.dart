@@ -37,7 +37,7 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
           IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {
-              // TODO: Navigate to medication reminders
+              Navigator.pushNamed(context, '/reminders');
             },
             tooltip: 'Reminders',
           ),
@@ -123,7 +123,9 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
     );
 
     if (result != null) {
-      await _databaseService.insertMedication(result);
+      final newMedication = await _databaseService.insertMedication(result);
+      // Generate automatic reminders for the new medication
+      await _databaseService.generateMedicationReminders(newMedication);
       _loadMedications();
     }
   }

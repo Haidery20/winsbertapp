@@ -55,6 +55,30 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildQuickActionCard(
+                  context,
+                  icon: Icons.notifications,
+                  title: 'Reminders',
+                  onTap: () => Navigator.pushNamed(context, '/reminders'),
+                ),
+                _buildQuickActionCard(
+                  context,
+                  icon: Icons.inventory,
+                  title: 'Inventory',
+                  onTap: () => Navigator.pushNamed(context, '/inventory'),
+                ),
+                _buildQuickActionCard(
+                  context,
+                  icon: Icons.people,
+                  title: 'Customers',
+                  onTap: () => Navigator.pushNamed(context, '/customers'),
+                ),
+              ],
+            ),
           ],
         ),
       ),

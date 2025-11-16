@@ -22,14 +22,14 @@ class AppNavigationDrawer extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'MedTrack',
+                'PharmaServe',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimaryContainer,
                       fontWeight: FontWeight.bold,
                     ),
               ),
               Text(
-                'Your Health Companion',
+                'Your Pharmaceutical Partner',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.8),
                     ),

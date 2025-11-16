@@ -8,7 +8,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MedTrack'),
+        title: const Text('PharmaServe'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       drawer: const AppNavigationDrawer(),
@@ -23,12 +23,12 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Welcome to MedTrack',
+              'Welcome to PharmaServe',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 10),
             Text(
-              'Your personal medical tracking assistant',
+              'Your trusted pharmaceutical partner',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 40),

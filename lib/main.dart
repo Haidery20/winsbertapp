@@ -16,14 +16,14 @@ class MedTrackApp extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MedTrack',
+      title: 'PharmaServe',
       theme: ThemeData(
-        colorSchemeSeed: Colors.teal,
+        colorSchemeSeed: const Color(0xFF3282B8),
         useMaterial3: true,
         brightness: Brightness.light,
       ),
       darkTheme: ThemeData(
-        colorSchemeSeed: Colors.teal,
+        colorSchemeSeed: const Color(0xFF3282B8),
         useMaterial3: true,
         brightness: Brightness.dark,
       ),

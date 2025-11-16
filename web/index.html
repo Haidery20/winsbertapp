@@ -18,21 +18,283 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="PharmaServe - Professional pharmaceutical services and medication management. Your trusted health companion for prescriptions, reminders, and wellness tracking.">
+  <meta name="keywords" content="pharmacy, pharmaceutical, medications, prescriptions, health, wellness, medication reminders, pharmacy services">
+  <meta name="author" content="PharmaServe">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="medtrack">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PharmaServe">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>medtrack</title>
+  <title>PharmaServe - Your Pharmaceutical Companion</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Splash Screen Styles -->
+  <style>
+    /* Splash Screen Container */
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f4c75 0%, #3282b8 50%, #bbe1fa 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease-out;
+    }
+
+    /* Medical Icon Container */
+    .medical-icon {
+      width: 120px;
+      height: 120px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 30px;
+      animation: pulse 2s infinite;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* Medical Cross Icon */
+    .medical-cross {
+      width: 60px;
+      height: 60px;
+      position: relative;
+    }
+
+    .medical-cross::before,
+    .medical-cross::after {
+      content: '';
+      position: absolute;
+      background: white;
+      border-radius: 4px;
+    }
+
+    .medical-cross::before {
+      width: 20px;
+      height: 60px;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+    }
+
+    .medical-cross::after {
+      width: 60px;
+      height: 20px;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* App Title */
+    .app-title {
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 1s ease-out;
+    }
+
+    /* App Subtitle */
+    .app-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      text-align: center;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    /* Loading Container */
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    /* Loading Spinner */
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    /* Loading Text */
+    .loading-text {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 15px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ffffff, #e0e0e0);
+      border-radius: 2px;
+      animation: loadingProgress 3s ease-in-out infinite;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes loadingProgress {
+      0% { width: 0%; }
+      50% { width: 70%; }
+      100% { width: 100%; }
+    }
+
+    /* Fade out animation */
+    .fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .app-title {
+        font-size: 2rem;
+      }
+      
+      .app-subtitle {
+        font-size: 1rem;
+      }
+      
+      .medical-icon {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .medical-cross {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .medical-cross::before {
+        width: 16px;
+        height: 50px;
+      }
+      
+      .medical-cross::after {
+        width: 50px;
+        height: 16px;
+      }
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      .splash-screen {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+      }
+    }
+  </style>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+  <!-- Beautiful Splash Screen -->
+  <div id="splash-screen" class="splash-screen">
+    <div class="medical-icon">
+      <div class="medical-cross"></div>
+    </div>
+    <h1 class="app-title">PharmaServe</h1>
+    <p class="app-subtitle">Your Trusted Pharmaceutical Partner</p>
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Loading your health dashboard...</div>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flutter App Container -->
+  <div id="flutter-app" style="display: none;">
+    <script src="flutter_bootstrap.js" async></script>
+  </div>
+
+  <!-- Splash Screen Management Script -->
+  <script>
+    // Show splash screen immediately
+    document.addEventListener('DOMContentLoaded', function() {
+      const splashScreen = document.getElementById('splash-screen');
+      const flutterApp = document.getElementById('flutter-app');
+      
+      // Simulate loading progress
+      let progress = 0;
+      const loadingText = document.querySelector('.loading-text');
+      const loadingMessages = [
+        'Preparing pharmaceutical services...',
+        'Loading medication management...',
+        'Setting up prescription tracker...',
+        'Initializing pharmacy network...',
+        'Ready to serve your health needs...'
+      ];
+      
+      const updateLoadingText = () => {
+        if (progress < loadingMessages.length) {
+          loadingText.textContent = loadingMessages[progress];
+          progress++;
+        }
+      };
+      
+      // Update loading text every 1.5 seconds
+      const textInterval = setInterval(updateLoadingText, 1500);
+      
+      // Auto-hide splash screen after 4 seconds
+      setTimeout(function() {
+        clearInterval(textInterval);
+        splashScreen.classList.add('fade-out');
+        
+        // Show Flutter app after fade out
+        setTimeout(function() {
+          splashScreen.style.display = 'none';
+          flutterApp.style.display = 'block';
+        }, 500);
+      }, 4000);
+    });
+  </script>
 </body>
 </html>

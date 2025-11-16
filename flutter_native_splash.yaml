@@ -1,0 +1,29 @@
+flutter_native_splash:
+  color: "#3282B8"
+  image: assets/pharmaserve_logo.png
+  branding: assets/pharmaserve_logo.png
+  color_dark: "#1A365D"
+  image_dark: assets/pharmaserve_logo.png
+  branding_dark: assets/pharmaserve_logo.png
+  
+  # Android settings
+  android: true
+  android_gravity: center
+  android_screen_orientation: portrait
+  
+  # iOS settings
+  ios: true
+  ios_content_mode: scaleAspectFit
+  ios_screen_orientation: portrait
+  
+  # Web settings
+  web: false
+  
+  # Full screen settings
+  fullscreen: true
+  
+  # Bottom padding for branding
+  branding_bottom_padding: 50
+  
+  # Duration in milliseconds
+  duration: 2000

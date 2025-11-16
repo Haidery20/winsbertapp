@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/navigation_drawer.dart';
+import '../widgets/pharmaserve_logo.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,7 +9,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PharmaServe'),
+        title: Row(
+          children: [
+            PharmaServeLogo(size: 32, showText: false),
+            const SizedBox(width: 12),
+            const Text('PharmaServe'),
+          ],
+        ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       drawer: const AppNavigationDrawer(),
@@ -16,10 +23,9 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.medical_services,
-              size: 100,
-              color: Theme.of(context).colorScheme.primary,
+            PharmaServeLogo(
+              size: 120,
+              showText: false,
             ),
             const SizedBox(height: 20),
             Text(

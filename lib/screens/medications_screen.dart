@@ -3,6 +3,7 @@ import '../models/medication.dart';
 import '../services/database_service.dart';
 import '../widgets/medication_card.dart';
 import '../widgets/add_medication_dialog.dart';
+import '../widgets/pharmaserve_logo.dart';
 
 class MedicationsScreen extends StatefulWidget {
   const MedicationsScreen({super.key});
@@ -31,7 +32,13 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Medications'),
+        title: Row(
+          children: [
+            PharmaServeLogo(size: 28, showText: false),
+            const SizedBox(width: 10),
+            const Text('Medications'),
+          ],
+        ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(

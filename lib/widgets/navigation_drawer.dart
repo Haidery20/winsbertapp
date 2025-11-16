@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'pharmaserve_logo.dart';
 
 class AppNavigationDrawer extends StatelessWidget {
   const AppNavigationDrawer({super.key});
@@ -15,10 +16,9 @@ class AppNavigationDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Icon(
-                Icons.medical_services,
-                size: 48,
-                color: Theme.of(context).colorScheme.primary,
+              PharmaServeLogo(
+                size: 60,
+                showText: false,
               ),
               const SizedBox(height: 16),
               Text(

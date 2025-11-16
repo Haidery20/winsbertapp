@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/reminder.dart';
 import '../services/database_service.dart';
 import '../widgets/reminder_card.dart';
+import '../widgets/pharmaserve_logo.dart';
 
 class RemindersScreen extends StatefulWidget {
   const RemindersScreen({super.key});
@@ -33,7 +34,13 @@ class _RemindersScreenState extends State<RemindersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Medication Reminders'),
+        title: Row(
+          children: [
+            PharmaServeLogo(size: 28, showText: false),
+            const SizedBox(width: 10),
+            const Text('Reminders'),
+          ],
+        ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
@@ -55,10 +62,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
             color: Theme.of(context).colorScheme.primaryContainer,
             child: Row(
               children: [
-                Icon(
-                  Icons.notifications_active,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                PharmaServeLogo(size: 32, showText: false),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(

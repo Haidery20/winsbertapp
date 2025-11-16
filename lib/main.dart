@@ -6,6 +6,9 @@ import 'screens/appointments_screen.dart';
 import 'screens/reminders_screen.dart';
 import 'screens/inventory_screen.dart';
 import 'screens/customers_screen.dart';
+import 'screens/splash_screen.dart';
+import 'screens/pharmaserve_splash_screen.dart';
+import 'widgets/pharmaserve_logo.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,8 +33,9 @@ class MedTrackApp extends StatelessWidget {
         useMaterial3: true,
         brightness: Brightness.dark,
       ),
-      home: const HomeScreen(),
+      home: const PharmaServeSplashScreen(),
       routes: {
+        '/': (context) => const HomeScreen(),
         '/vitals': (context) => const VitalsScreen(),
         '/medications': (context) => const MedicationsScreen(),
         '/appointments': (context) => const AppointmentsScreen(),

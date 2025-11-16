@@ -73,18 +73,20 @@ class HomeScreen extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
         child: Container(
-          width: 100,
-          height: 100,
-          padding: const EdgeInsets.all(12),
+          width: 110,
+          height: 110,
+          padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 40, color: Theme.of(context).colorScheme.primary),
-              const SizedBox(height: 8),
+              Icon(icon, size: 32, color: Theme.of(context).colorScheme.primary),
+              const SizedBox(height: 4),
               Text(
                 title,
-                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),

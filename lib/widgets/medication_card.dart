@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/medication.dart';
 
 class MedicationCard extends StatelessWidget {
-  final Medication medication;
+  final dynamic medication;
   final VoidCallback onDelete;
   final VoidCallback onToggleTaken;
 

@@ -15,7 +15,6 @@ class _AddAppointmentDialogState extends State<AddAppointmentDialog> {
   final _locationController = TextEditingController();
   final _notesController = TextEditingController();
   
-  String? _selectedType;
   DateTime _selectedDateTime = DateTime.now();
   DateTime? _reminderTime;
 
@@ -82,24 +81,19 @@ class _AddAppointmentDialogState extends State<AddAppointmentDialog> {
                 },
               ),
               const SizedBox(height: 16),
-              DropdownButtonFormField<String>(
-                value: _selectedType,
-                decoration: const InputDecoration(
-                  labelText: 'Appointment Type (Optional)',
-                  border: OutlineInputBorder(),
-                ),
-                items: Appointment.appointmentTypes.map((type) {
-                  return DropdownMenuItem(
-                    value: type,
-                    child: Text(type),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedType = value;
-                  });
-                },
-              ),
+              // DropdownButtonFormField<String>(
+              //   value: _selectedType,
+              //   decoration: const InputDecoration(
+              //     labelText: 'Appointment Type (Optional)',
+              //     border: OutlineInputBorder(),
+              //   ),
+              //   items: [],
+              //   onChanged: (value) {
+              //     setState(() {
+              //       _selectedType = value;
+              //     });
+              //   },
+              // ),
               const SizedBox(height: 16),
               ListTile(
                 title: const Text('Date & Time'),
@@ -205,7 +199,8 @@ class _AddAppointmentDialogState extends State<AddAppointmentDialog> {
         location: _locationController.text,
         dateTime: _selectedDateTime,
         notes: _notesController.text.isEmpty ? null : _notesController.text,
-        type: _selectedType,
+        type: null,
+        isCompleted: false,
         reminderTime: _reminderTime,
       );
 

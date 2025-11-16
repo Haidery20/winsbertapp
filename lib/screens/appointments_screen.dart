@@ -12,8 +12,8 @@ class AppointmentsScreen extends StatefulWidget {
 }
 
 class _AppointmentsScreenState extends State<AppointmentsScreen> {
-  late Future<List<Appointment>> _appointmentsFuture;
-  final DatabaseService _databaseService = DatabaseService.instance;
+  late Future<List<dynamic>> _appointmentsFuture;
+  final InMemoryDatabase _databaseService = InMemoryDatabase();
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
           ),
         ],
       ),
-      body: FutureBuilder<List<Appointment>>(
+      body: FutureBuilder<List<dynamic>>(
         future: _appointmentsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

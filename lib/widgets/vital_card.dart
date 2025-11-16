@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/vital.dart';
 
 class VitalCard extends StatelessWidget {
-  final Vital vital;
+  final dynamic vital;
   final VoidCallback onDelete;
 
   const VitalCard({
@@ -91,7 +90,7 @@ class VitalCard extends StatelessWidget {
       case 'Oxygen Saturation':
         return Icons.air;
       case 'Respiratory Rate':
-        return Icons.lungs;
+        return Icons.air;
       default:
         return Icons.medical_services;
     }

@@ -12,8 +12,8 @@ class VitalsScreen extends StatefulWidget {
 }
 
 class _VitalsScreenState extends State<VitalsScreen> {
-  late Future<List<Vital>> _vitalsFuture;
-  final DatabaseService _databaseService = DatabaseService.instance;
+  late Future<List<dynamic>> _vitalsFuture;
+  final InMemoryDatabase _databaseService = InMemoryDatabase();
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _VitalsScreenState extends State<VitalsScreen> {
           ),
         ],
       ),
-      body: FutureBuilder<List<Vital>>(
+      body: FutureBuilder<List<dynamic>>(
         future: _vitalsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

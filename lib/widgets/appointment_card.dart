@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/appointment.dart';
 
 class AppointmentCard extends StatelessWidget {
-  final Appointment appointment;
+  final dynamic appointment;
   final VoidCallback onDelete;
 
   const AppointmentCard({
@@ -103,7 +102,7 @@ class AppointmentCard extends StatelessWidget {
       case 'CT Scan':
         return Icons.scanner;
       case 'Surgery':
-        return Icons.surgery;
+        return Icons.medical_services;
       case 'Vaccination':
         return Icons.vaccines;
       case 'Physical Therapy':
@@ -140,9 +139,9 @@ class AppointmentCard extends StatelessWidget {
 
   bool get isTomorrow {
     final tomorrow = DateTime.now().add(const Duration(days: 1));
-    return dateTime.year == tomorrow.year &&
-           dateTime.month == tomorrow.month &&
-           dateTime.day == tomorrow.day;
+    return appointment.dateTime.year == tomorrow.year &&
+           appointment.dateTime.month == tomorrow.month &&
+           appointment.dateTime.day == tomorrow.day;
   }
 
   void _showAppointmentDetails(BuildContext context) {

@@ -48,7 +48,7 @@ class PharmaServeLogo extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(size * 0.25),
               child: Image.asset(
-                'images/pharmaserve-logo.png',
+                'images/winsbert-logo.jpg',
                 width: size,
                 height: size,
                 fit: BoxFit.contain,
@@ -131,7 +131,7 @@ class PharmaServeLogo extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        'P',
+                        'W',
                         style: TextStyle(
                           fontSize: size * 0.15,
                           fontWeight: FontWeight.bold,
@@ -148,7 +148,7 @@ class PharmaServeLogo extends StatelessWidget {
         if (showText) ...[
           const SizedBox(height: 12),
           Text(
-            'PharmaServe',
+            'Winsbert',
             style: TextStyle(
               fontSize: size * 0.18,
               fontWeight: FontWeight.bold,
@@ -158,7 +158,7 @@ class PharmaServeLogo extends StatelessWidget {
             ),
           ),
           Text(
-            'Professional Pharmaceutical Services',
+            'Modern Pharmacy Solutions',
             style: TextStyle(
               fontSize: size * 0.08,
               color: color.withOpacity(0.7),

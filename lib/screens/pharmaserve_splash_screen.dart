@@ -101,7 +101,7 @@ class _PharmaServeSplashScreenState extends State<PharmaServeSplashScreen>
                       child: Column(
                         children: [
                           Text(
-                            'PharmaServe',
+                            'Winsbert',
                             style: TextStyle(
                               fontSize: 36,
                               fontWeight: FontWeight.bold,
@@ -118,7 +118,7 @@ class _PharmaServeSplashScreenState extends State<PharmaServeSplashScreen>
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Your Pharmaceutical Partner',
+                            'Modern Pharmacy Solutions',
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.white.withOpacity(0.9),

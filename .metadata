@@ -15,22 +15,7 @@ migration:
     - platform: root
       create_revision: 
       base_revision: 
-    - platform: android
-      create_revision: 
-      base_revision: 
     - platform: ios
-      create_revision: 
-      base_revision: 
-    - platform: linux
-      create_revision: 
-      base_revision: 
-    - platform: macos
-      create_revision: 
-      base_revision: 
-    - platform: web
-      create_revision: 
-      base_revision: 
-    - platform: windows
       create_revision: 
       base_revision: 
 

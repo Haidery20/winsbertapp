@@ -23,14 +23,14 @@ class AppNavigationDrawer extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'PharmaServe',
+                'Winsbert',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimaryContainer,
                       fontWeight: FontWeight.bold,
                     ),
               ),
               Text(
-                'Your Pharmaceutical Partner',
+                'Modern Pharmacy Solutions',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.8),
                     ),
@@ -98,9 +98,9 @@ class AppNavigationDrawer extends StatelessWidget {
             Navigator.pop(context);
             showAboutDialog(
               context: context,
-              applicationName: 'PharmaServe',
+              applicationName: 'Winsbert',
               applicationVersion: '1.0.0',
-              applicationLegalese: '© 2024 PharmaServe. All rights reserved.',
+              applicationLegalese: '© 2025 Winsbert. All rights reserved.',
             );
           },
         ),

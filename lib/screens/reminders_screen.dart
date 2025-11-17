@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/reminder.dart';
 import '../services/database_service.dart';
 import '../widgets/reminder_card.dart';
 import '../widgets/pharmaserve_logo.dart';

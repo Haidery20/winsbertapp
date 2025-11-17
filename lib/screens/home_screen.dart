@@ -12,56 +12,84 @@ class HomeScreen extends StatelessWidget {
         title: Row(
           children: [
             PharmaServeLogo(
-              size: 40,
+              size: 36,
               showText: false,
               customColor: Theme.of(context).colorScheme.onPrimary,
               useCustomImage: true,
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 10),
             Text(
-              'PharmaServe',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
+              'Winsbert',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
             ),
           ],
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        elevation: 4,
-        shadowColor: Theme.of(context).colorScheme.primary.withOpacity(0.3),
       ),
       drawer: const AppNavigationDrawer(),
-      body: Center(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Enhanced logo with glow effect using your custom PNG
-            PharmaServeLogo(
-              size: 160,
-              showText: true,
-              showGlow: true,
-              useCustomImage: true,
-            ),
-            const SizedBox(height: 40),
-            Text(
-              'Welcome to PharmaServe',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
+            Card(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    PharmaServeLogo(
+                      size: 80,
+                      showText: false,
+                      useCustomImage: true,
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Welcome to Winsbert',
+                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            'Modern, reliable pharmacy services',
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer
+                                      .withOpacity(0.8),
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              decoration: const InputDecoration(
+                hintText: 'Search medications, customers, appointments',
+                prefixIcon: Icon(Icons.search),
+              ),
+              onTap: () {},
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Quick Actions',
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),
-            Text(
-              'Your trusted pharmaceutical partner',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-            const SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
               children: [
                 _buildQuickActionCard(
                   context,
@@ -81,12 +109,6 @@ class HomeScreen extends StatelessWidget {
                   title: 'Appointments',
                   onTap: () => Navigator.pushNamed(context, '/appointments'),
                 ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
                 _buildQuickActionCard(
                   context,
                   icon: Icons.notifications,
@@ -110,6 +132,31 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: 0,
+        onDestinationSelected: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushReplacementNamed(context, '/home');
+              break;
+            case 1:
+              Navigator.pushNamed(context, '/medications');
+              break;
+            case 2:
+              Navigator.pushNamed(context, '/appointments');
+              break;
+            case 3:
+              Navigator.pushNamed(context, '/inventory');
+              break;
+          }
+        },
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.medication_outlined), selectedIcon: Icon(Icons.medication), label: 'Medications'),
+          NavigationDestination(icon: Icon(Icons.calendar_today_outlined), selectedIcon: Icon(Icons.calendar_today), label: 'Appointments'),
+          NavigationDestination(icon: Icon(Icons.inventory_2_outlined), selectedIcon: Icon(Icons.inventory_2), label: 'Inventory'),
+        ],
+      ),
     );
   }
 
@@ -119,59 +166,36 @@ class HomeScreen extends StatelessWidget {
     required String title,
     required VoidCallback onTap,
   }) {
-    return Container(
-      width: 110,
-      height: 110,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Theme.of(context).colorScheme.primary.withOpacity(0.9),
-            Theme.of(context).colorScheme.primary.withOpacity(0.7),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+    return Card(
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(16),
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
-          child: Container(
-            padding: const EdgeInsets.all(12),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: SizedBox(
+            width: 140,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  icon,
-                  size: 36,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black.withOpacity(0.3),
-                      offset: const Offset(1, 1),
-                      blurRadius: 2,
-                    ),
-                  ],
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondaryContainer,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    icon,
+                    size: 26,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                    letterSpacing: 0.5,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

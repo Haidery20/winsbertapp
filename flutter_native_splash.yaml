@@ -1,10 +1,10 @@
 flutter_native_splash:
   color: "#3282B8"
-  image: assets/pharmaserve_logo.png
-  branding: assets/pharmaserve_logo.png
+  image: images/winsbert-logo.jpg
+  branding: images/winsbert-logo.jpg
   color_dark: "#1A365D"
-  image_dark: assets/pharmaserve_logo.png
-  branding_dark: assets/pharmaserve_logo.png
+  image_dark: images/winsbert-logo.jpg
+  branding_dark: images/winsbert-logo.jpg
   
   # Android settings
   android: true

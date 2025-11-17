@@ -145,7 +145,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _buildSettingsCard([
             ListTile(
               leading: const Icon(Icons.info_outline, color: Colors.grey),
-              title: const Text('About PharmaServe'),
+              title: const Text('About Winsbert'),
               subtitle: const Text('App version and information'),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: _showAboutDialog,
@@ -302,7 +302,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('PharmaServe Pharmacy', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text('Winsbert Pharmacy', style: TextStyle(fontWeight: FontWeight.bold)),
             SizedBox(height: 8),
             Text('123 Medical Street'),
             Text('Healthcare District'),
@@ -381,7 +381,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 labelText: 'Email',
                 prefixIcon: Icon(Icons.email),
               ),
-              controller: TextEditingController(text: 'manager@pharmaserve.com'),
+              controller: TextEditingController(text: 'manager@winsbert.com'),
             ),
             const SizedBox(height: 16),
             TextField(
@@ -456,9 +456,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _showAboutDialog() {
     showAboutDialog(
       context: context,
-      applicationName: 'PharmaServe',
+      applicationName: 'Winsbert',
       applicationVersion: '1.0.0',
-      applicationLegalese: '© 2024 PharmaServe. All rights reserved.',
+      applicationLegalese: '© 2024 Winsbert. All rights reserved.',
       children: [
         const SizedBox(height: 16),
         const Text(
@@ -498,7 +498,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ListTile(
               leading: const Icon(Icons.contact_mail, color: Colors.green),
               title: const Text('Contact Support'),
-              subtitle: const Text('support@pharmaserve.com'),
+              subtitle: const Text('support@winsbert.com'),
               onTap: () {
                 // TODO: Open email client
               },

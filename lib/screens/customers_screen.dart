@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../services/database_service.dart';
 
 class CustomersScreen extends StatefulWidget {
   const CustomersScreen({super.key});
@@ -9,7 +8,6 @@ class CustomersScreen extends StatefulWidget {
 }
 
 class _CustomersScreenState extends State<CustomersScreen> {
-  final InMemoryDatabase _databaseService = InMemoryDatabase();
 
   @override
   Widget build(BuildContext context) {

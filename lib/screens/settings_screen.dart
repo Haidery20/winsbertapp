@@ -356,7 +356,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 // Toggle admin for demo purposes
                 setState(() {
                   _isAdmin = !_isAdmin;
-                  _db.setAdmin(_isAdmin);
                 });
               },
               icon: const Icon(Icons.admin_panel_settings),
@@ -750,8 +749,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           ElevatedButton(
             onPressed: () {
-              // TODO: Implement logout functionality
               Navigator.pop(context);
+              InMemoryDatabase().logout();
               Navigator.pushReplacementNamed(context, '/login');
             },
             style: ElevatedButton.styleFrom(

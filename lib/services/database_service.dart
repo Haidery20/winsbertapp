@@ -17,7 +17,7 @@ class InMemoryDatabase {
   // Staff management
   final List<StaffMember> _staffActive = [];
   final List<StaffMember> _staffPending = [];
-  bool _isAdmin = true;
+  UserAccount? _currentUser;
 
   void _initializeSampleData() {
     // Add sample medications
@@ -298,9 +298,33 @@ class InMemoryDatabase {
     return reminders;
   }
 
+  // Auth
+  final List<UserAccount> _users = [
+    UserAccount(email: 'admin@winsbert.com', password: 'admin123', role: StaffRole.manager),
+    UserAccount(email: 'jane@winsbert.com', password: 'staff123', role: StaffRole.pharmacist),
+  ];
+
+  bool get isAuthenticated => _currentUser != null;
+  bool get isAdmin => _currentUser?.role == StaffRole.manager;
+  UserAccount? get currentUser => _currentUser;
+
+  Future<bool> login(String email, String password) async {
+    final user = _users.firstWhere(
+      (u) => u.email.toLowerCase() == email.toLowerCase() && u.password == password,
+      orElse: () => UserAccount.empty,
+    );
+    if (user == UserAccount.empty) {
+      return false;
+    }
+    _currentUser = user;
+    return true;
+  }
+
+  Future<void> logout() async {
+    _currentUser = null;
+  }
+
   // Staff management methods
-  bool get isAdmin => _isAdmin;
-  void setAdmin(bool value) => _isAdmin = value;
 
   Future<List<StaffMember>> getActiveStaff() async => List.unmodifiable(_staffActive);
   Future<List<StaffMember>> getPendingStaff() async => List.unmodifiable(_staffPending);
@@ -379,4 +403,14 @@ class StaffMember {
       status: status ?? this.status,
     );
   }
+}
+
+class UserAccount {
+  final String email;
+  final String password;
+  final StaffRole role;
+
+  const UserAccount({required this.email, required this.password, required this.role});
+
+  static const empty = UserAccount(email: '', password: '', role: StaffRole.clerk);
 }

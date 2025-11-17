@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/pharmaserve_logo.dart';
+import '../services/database_service.dart';
 
 class PharmaServeSplashScreen extends StatefulWidget {
   const PharmaServeSplashScreen({super.key});
@@ -47,11 +48,12 @@ class _PharmaServeSplashScreenState extends State<PharmaServeSplashScreen>
     
     _controller.forward();
     
-    // Navigate to home after animation completes
+    // Navigate after animation completes based on auth state
     Future.delayed(const Duration(milliseconds: 3500), () {
-      if (mounted) {
-        Navigator.of(context).pushReplacementNamed('/home');
-      }
+      if (!mounted) return;
+      final db = InMemoryDatabase();
+      final next = db.isAuthenticated ? '/home' : '/login';
+      Navigator.of(context).pushReplacementNamed(next);
     });
   }
 

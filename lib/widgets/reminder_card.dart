@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/reminder.dart';
 
 class ReminderCard extends StatelessWidget {
   final dynamic reminder;

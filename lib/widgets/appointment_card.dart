@@ -115,8 +115,6 @@ class AppointmentCard extends StatelessWidget {
   }
 
   String _formatDateTime(DateTime dateTime) {
-    final now = DateTime.now();
-    final difference = now.difference(dateTime);
 
     if (appointment.isToday) {
       return 'Today at ${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';

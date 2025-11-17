@@ -8,6 +8,10 @@ import 'screens/inventory_screen.dart';
 import 'screens/customers_screen.dart';
 import 'screens/pharmaserve_splash_screen.dart';
 import 'screens/settings_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/books_screen.dart';
+import 'screens/reports_screen.dart';
+import 'screens/account_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +37,7 @@ class WinsbertApp extends StatelessWidget {
           elevation: 1,
           centerTitle: false,
         ),
-        cardTheme: const CardThemeData(
+        cardTheme: const CardTheme(
           elevation: 1,
           margin: EdgeInsets.all(8),
           shape: RoundedRectangleBorder(
@@ -78,7 +82,7 @@ class WinsbertApp extends StatelessWidget {
           elevation: 1,
           centerTitle: false,
         ),
-        cardTheme: const CardThemeData(
+        cardTheme: const CardTheme(
           elevation: 1,
           margin: EdgeInsets.all(8),
           shape: RoundedRectangleBorder(
@@ -112,14 +116,19 @@ class WinsbertApp extends StatelessWidget {
           bodyMedium: TextStyle(fontSize: 14),
         ),
       ),
-      home: const PharmaServeSplashScreen(),
+      initialRoute: '/splash',
       routes: {
+        '/splash': (context) => const PharmaServeSplashScreen(),
+        '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
         '/vitals': (context) => const VitalsScreen(),
         '/medications': (context) => const MedicationsScreen(),
         '/appointments': (context) => const AppointmentsScreen(),
         '/reminders': (context) => const RemindersScreen(),
         '/inventory': (context) => const InventoryScreen(),
+        '/books': (context) => const BooksScreen(),
+        '/reports': (context) => const ReportsScreen(),
+        '/account': (context) => const AccountScreen(),
         '/customers': (context) => const CustomersScreen(),
         '/settings': (context) => const SettingsScreen(),
       },

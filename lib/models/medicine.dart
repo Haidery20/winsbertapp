@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Medicine {
   final int? id;
   final String name;
@@ -56,10 +58,10 @@ class Medicine {
   }
 
   Color get stockStatusColor {
-    if (isExpired) return 'danger';
-    if (isExpiringSoon) return 'warning';
-    if (isLowStock) return 'caution';
-    return 'success';
+    if (isExpired) return Colors.red;
+    if (isExpiringSoon) return Colors.orange;
+    if (isLowStock) return Colors.amber;
+    return Colors.green;
   }
 
   Map<String, dynamic> toMap() {

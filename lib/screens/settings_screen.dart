@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../services/database_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -13,6 +14,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _autoBackupEnabled = true;
   int _reminderTime = 30; // minutes before medication time
   String _selectedLanguage = 'English';
+  final InMemoryDatabase _db = InMemoryDatabase();
+  late bool _isAdmin;
+
+  @override
+  void initState() {
+    super.initState();
+    _isAdmin = _db.isAdmin;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +76,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ]),
 
           const SizedBox(height: 24),
+
+          if (_isAdmin) ...[
+            _buildSectionHeader('Admin Controls'),
+            _buildAdminControls(),
+            const SizedBox(height: 24),
+          ],
 
           // Medication Settings Section
           _buildSectionHeader('Medication Settings'),
@@ -322,6 +337,205 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
+  }
+
+  Widget _buildAdminControls() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            ElevatedButton.icon(
+              onPressed: _showAddStaffDialog,
+              icon: const Icon(Icons.person_add),
+              label: const Text('Add Staff'),
+            ),
+            const SizedBox(width: 12),
+            ElevatedButton.icon(
+              onPressed: () async {
+                // Toggle admin for demo purposes
+                setState(() {
+                  _isAdmin = !_isAdmin;
+                  _db.setAdmin(_isAdmin);
+                });
+              },
+              icon: const Icon(Icons.admin_panel_settings),
+              label: Text(_isAdmin ? 'Admin Mode: ON' : 'Admin Mode: OFF'),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Pending Staff', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                FutureBuilder<List<StaffMember>>(
+                  future: _db.getPendingStaff(),
+                  builder: (context, snapshot) {
+                    final items = snapshot.data ?? [];
+                    if (items.isEmpty) {
+                      return const Text('No pending requests');
+                    }
+                    return Column(
+                      children: items.map((s) => ListTile(
+                        leading: const Icon(Icons.hourglass_top),
+                        title: Text('${s.name} — ${s.email}'),
+                        subtitle: Text('Requested role: ${_roleLabel(s.role)}'),
+                        trailing: Wrap(spacing: 8, children: [
+                          IconButton(
+                            tooltip: 'Approve',
+                            icon: const Icon(Icons.check_circle, color: Colors.green),
+                            onPressed: () async {
+                              await _db.approveStaff(s.id);
+                              setState(() {});
+                            },
+                          ),
+                          IconButton(
+                            tooltip: 'Reject',
+                            icon: const Icon(Icons.cancel, color: Colors.red),
+                            onPressed: () async {
+                              await _db.rejectStaff(s.id);
+                              setState(() {});
+                            },
+                          ),
+                        ]),
+                      )).toList(),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Active Staff', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                FutureBuilder<List<StaffMember>>(
+                  future: _db.getActiveStaff(),
+                  builder: (context, snapshot) {
+                    final items = snapshot.data ?? [];
+                    if (items.isEmpty) {
+                      return const Text('No active staff');
+                    }
+                    return Column(
+                      children: items.map((s) => ListTile(
+                        leading: const Icon(Icons.person),
+                        title: Text('${s.name} — ${s.email}'),
+                        subtitle: Text('Role: ${_roleLabel(s.role)}'),
+                        trailing: Wrap(spacing: 8, children: [
+                          PopupMenuButton<StaffRole>(
+                            tooltip: 'Assign role',
+                            onSelected: (role) async {
+                              await _db.updateStaffRole(s.id, role);
+                              setState(() {});
+                            },
+                            itemBuilder: (context) => StaffRole.values.map((r) => PopupMenuItem<StaffRole>(
+                              value: r,
+                              child: Text(_roleLabel(r)),
+                            )).toList(),
+                            child: const Icon(Icons.badge),
+                          ),
+                          IconButton(
+                            tooltip: 'Remove',
+                            icon: const Icon(Icons.delete_outline, color: Colors.red),
+                            onPressed: () async {
+                              await _db.removeStaff(s.id);
+                              setState(() {});
+                            },
+                          ),
+                        ]),
+                      )).toList(),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showAddStaffDialog() {
+    final nameController = TextEditingController();
+    final emailController = TextEditingController();
+    StaffRole selectedRole = StaffRole.clerk;
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Add Staff'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(labelText: 'Full Name'),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(labelText: 'Email'),
+            ),
+            const SizedBox(height: 12),
+            DropdownButtonFormField<StaffRole>(
+              value: selectedRole,
+              items: StaffRole.values.map((r) => DropdownMenuItem(
+                value: r,
+                child: Text(_roleLabel(r)),
+              )).toList(),
+              onChanged: (val) {
+                selectedRole = val ?? StaffRole.clerk;
+              },
+              decoration: const InputDecoration(labelText: 'Role'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              await _db.addPendingStaff(
+                name: nameController.text.trim(),
+                email: emailController.text.trim(),
+                role: selectedRole,
+              );
+              if (mounted) {
+                Navigator.pop(context);
+                setState(() {});
+              }
+            },
+            child: const Text('Submit'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _roleLabel(StaffRole role) {
+    switch (role) {
+      case StaffRole.manager:
+        return 'Manager';
+      case StaffRole.pharmacist:
+        return 'Pharmacist';
+      case StaffRole.technician:
+        return 'Technician';
+      case StaffRole.clerk:
+        return 'Clerk';
+    }
   }
 
   void _showInventoryAlertsDialog() {

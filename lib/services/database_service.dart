@@ -14,6 +14,10 @@ class InMemoryDatabase {
   final List<dynamic> _medications = [];
   final List<dynamic> _appointments = [];
   final List<dynamic> _reminders = [];
+  // Staff management
+  final List<StaffMember> _staffActive = [];
+  final List<StaffMember> _staffPending = [];
+  bool _isAdmin = true;
 
   void _initializeSampleData() {
     // Add sample medications
@@ -70,6 +74,15 @@ class InMemoryDatabase {
     ];
     
     _reminders.addAll(sampleReminders);
+
+    // Seed staff
+    _staffActive.addAll([
+      StaffMember(id: 1, name: 'Admin User', email: 'admin@winsbert.com', role: StaffRole.manager, status: StaffStatus.active),
+      StaffMember(id: 2, name: 'Pharmacist Jane', email: 'jane@winsbert.com', role: StaffRole.pharmacist, status: StaffStatus.active),
+    ]);
+    _staffPending.addAll([
+      StaffMember(id: 3, name: 'Tech John', email: 'john@winsbert.com', role: StaffRole.technician, status: StaffStatus.pending),
+    ]);
   }
 
   // Vital methods
@@ -283,5 +296,87 @@ class InMemoryDatabase {
     }
     
     return reminders;
+  }
+
+  // Staff management methods
+  bool get isAdmin => _isAdmin;
+  void setAdmin(bool value) => _isAdmin = value;
+
+  Future<List<StaffMember>> getActiveStaff() async => List.unmodifiable(_staffActive);
+  Future<List<StaffMember>> getPendingStaff() async => List.unmodifiable(_staffPending);
+
+  Future<StaffMember> addPendingStaff({required String name, required String email, StaffRole role = StaffRole.clerk}) async {
+    final id = (_staffActive.length + _staffPending.length) + 1;
+    final member = StaffMember(id: id, name: name, email: email, role: role, status: StaffStatus.pending);
+    _staffPending.add(member);
+    return member;
+  }
+
+  Future<int> approveStaff(int id, {StaffRole? role}) async {
+    final index = _staffPending.indexWhere((s) => s.id == id);
+    if (index != -1) {
+      final approved = _staffPending.removeAt(index);
+      final updated = approved.copyWith(status: StaffStatus.active, role: role ?? approved.role);
+      _staffActive.add(updated);
+      return 1;
+    }
+    return 0;
+  }
+
+  Future<int> rejectStaff(int id) async {
+    final initial = _staffPending.length;
+    _staffPending.removeWhere((s) => s.id == id);
+    return initial - _staffPending.length;
+  }
+
+  Future<int> updateStaffRole(int id, StaffRole role) async {
+    final index = _staffActive.indexWhere((s) => s.id == id);
+    if (index != -1) {
+      _staffActive[index] = _staffActive[index].copyWith(role: role);
+      return 1;
+    }
+    return 0;
+  }
+
+  Future<int> removeStaff(int id) async {
+    final initial = _staffActive.length;
+    _staffActive.removeWhere((s) => s.id == id);
+    return initial - _staffActive.length;
+  }
+}
+
+enum StaffRole { manager, pharmacist, technician, clerk }
+
+enum StaffStatus { pending, active }
+
+class StaffMember {
+  final int id;
+  final String name;
+  final String email;
+  final StaffRole role;
+  final StaffStatus status;
+
+  StaffMember({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.role,
+    required this.status,
+  });
+
+  StaffMember copyWith({
+    int? id,
+    String? name,
+    String? email,
+    StaffRole? role,
+    StaffStatus? status,
+  }) {
+    return StaffMember(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      role: role ?? this.role,
+      status: status ?? this.status,
+    );
   }
 }
